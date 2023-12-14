@@ -72,3 +72,75 @@ return target;
 
 .Tests réussis TP2
 image::image2.png[width=80%]
+
+
+== TP3...
+
+
+J'ai utilisé le langage python pour réalisé ce tp.
+
+
+La classe musique.py
+
+.La classe musique.py
+[source,python]
+
+----
+class Musique:
+    def __init__(self, like_listening_music=False):
+        self.like_listening_music = like_listening_music
+        self.album_dropped = False
+        self.love_kanye = False
+
+    def listen_music(self):
+        self.like_listening_music = True
+
+    def drop_album(self):
+        if self.like_listening_music:
+            self.album_dropped = True
+
+    def love_kanye_now(self):
+        if self.album_dropped:
+            self.love_kanye = True
+
+----
+
+
+Les features ajoutés : 
+
+
+.Le premier feature calculator
+[source,python]
+
+----
+Feature: Calculator
+    Scenario: Add two numbers
+        Given the first number is 3
+        And the second number is 4
+        When the two numbers are added
+        Then the result should be 7
+
+
+----
+
+
+.Le deuxième feature la musique
+[source,python]
+
+----
+Feature: Music
+    Scenario Outline: I love Kanye when he drops an album
+        Given <love> like listening <music>
+        When <artist> West drops an album Friday
+        Then <love> love <artist>
+
+Examples:
+    | love     | music    | artist   |
+    | I        | love     | kanye    |
+
+
+----
+
+
+.Tests réussis TP3
+image::image3.png[width=80%]
