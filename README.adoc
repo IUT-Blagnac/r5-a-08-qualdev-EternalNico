@@ -74,7 +74,7 @@ return target;
 image::image2.png[width=80%]
 
 
-== TP3...
+== TP3
 
 
 J'ai utilisé le langage python pour réalisé ce tp.
@@ -144,3 +144,87 @@ Examples:
 
 .Tests réussis TP3
 image::image3.png[width=80%]
+
+== TP4
+
+Le but de ce tp était de créer une documentation en lien avec les tests réalisés lors des anciens tp, j'ai utilisé la méthode avec cukedoctor.
+
+la classe RunCucumberTest.java
+
+.La classe musique.py
+[source,java]
+
+----
+package dojo;
+
+import cucumber.api.junit.Cucumber;
+import org.junit.runner.RunWith;
+import cucumber.api.CucumberOptions;
+import net.masterthought.cucumber.Configuration;
+import net.masterthought.cucumber.ReportBuilder;
+import org.junit.AfterClass;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+@RunWith(Cucumber.class)
+@CucumberOptions(plugin = {"json:target/cucumber.json"} )
+public class RunCucumberTest { 
+    @AfterClass
+    public static void generateReport() {
+        File reportOutputDirectory = new File("doc");
+        List<String> jsonFiles = new ArrayList<>();
+        jsonFiles.add("target/cucumber.json");
+
+        String buildNumber = "1";
+        String projectName = "CucumberProject";
+        Configuration configuration = new Configuration(reportOutputDirectory, projectName);
+        configuration.setBuildNumber(buildNumber);
+        configuration.addClassifications("Platform", "Windows");
+        configuration.addClassifications("Browser", "Chrome");
+        configuration.addClassifications("Branch", "release/1.0");
+
+        ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
+        reportBuilder.generateReports();
+    }
+}
+
+----
+
+
+Le changement dans le pom.xml
+
+
+.L'ajout des dépendances dans pom.xml
+[source,java]
+
+----
+<dependency>
+    <groupId>com.github.cukedoctor</groupId>
+    <artifactId>cukedoctor-converter</artifactId>
+    <version>3.7.0</version>
+</dependency>
+<dependency>
+    <groupId>net.masterthought</groupId>
+    <artifactId>cucumber-reporting</artifactId>
+    <version>5.5.3</version> 
+</dependency>
+
+----
+
+
+
+
+Voici les screens des pages html générées par la commande `mvn clean test`
+
+.Screen des fichiers html présents sous /doc
+image::image4.png[width=80%]
+image::image5.png[width=80%]
+image::image6.png[width=80%]
+image::image7.png[width=80%]
+image::image8.png[width=80%]
+
+
+
+
